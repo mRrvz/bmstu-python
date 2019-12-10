@@ -17,9 +17,11 @@
 from tkinter import *
 from tkinter import messagebox as mb
 import numpy as np
-import time 
+import time
+from threading import Thread
 
 # Функция обновления label-виджета при изменения поля Entry
+
 
 def checked_entry(sv):
     if "\n" in steps_sort_label["text"]:
@@ -77,7 +79,7 @@ def sort_binary_find(list_to_sort, flag = False):
 
     now_time = time.time()
     
-    if flag == True:
+    if flag:
         time_sort = now_time - start_time    
         return list_to_sort, time_sort
     
@@ -90,6 +92,7 @@ def sort_random_array(low_range, high_range, size_list, window):
     random_array_copy = random_array.copy()
     
     if window == 1:
+        #target1 = Thread(target = sort_binary_find, args=(random_array, True))
         random_array, time_sort = sort_binary_find(random_array, True)
         table_time_first["text"] = "{0:.9f}".format(time_sort)
 
@@ -235,10 +238,10 @@ def checked_correctness(list_entry):
 # Создание главного окна и его настройка
 
 root = Tk()
-root.geometry("1300x400")
+root.geometry("1300x600")
 root.title("Бинарная сортировка вставками")
-root.maxsize(height=400, width=1300)
-root.minsize(height=400, width=1300)
+root.maxsize(height=600, width=1300)
+root.minsize(height=600, width=1300)
 
 # Label's
 
@@ -386,4 +389,3 @@ list_entry = Entry(root, textvariable=sv)
 list_entry.place(x=180, y=23, width=200)
 
 root.mainloop()
-
